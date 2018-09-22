@@ -1,11 +1,10 @@
-import { AbstractConnector } from "../storages/AbstractConnector";
+import { AbstractConnector } from '../storages/AbstractConnector';
 
 export interface IConfig {
-    accessKey : string
+    accessKey: string
     smtp: boolean
-    catchAll : boolean
-    secure : boolean
-    cache? : boolean
-    connector? : AbstractConnector
+    catchAll: boolean
+    secure: boolean
+    cache?: boolean
+    connector?: AbstractConnector
 }
-

@@ -1,11 +1,11 @@
 import {MailBoxLayer} from '..'
 import {accessKey} from './config'
 // Without storage
-const mailBoxLayer = new MailBoxLayer({accessKey,smtp : true, catchAll : true,secure : false})
+const mailBoxLayer = new MailBoxLayer({accessKey, smtp : true, catchAll : true, secure : false})
 
-mailBoxLayer.getInformations('zynefaty@duck2.club').then(email=>{
+mailBoxLayer.getInformations('zynefaty@duck2.club').then(email => {
     console.log(email)
 })
-.catch(err=>{
+.catch(err => {
     console.error(err)
 })

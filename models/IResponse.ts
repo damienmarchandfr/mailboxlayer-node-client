@@ -1,12 +1,12 @@
 export class IResponseError {
-    success: boolean
-    error: {
+    public success: boolean
+    public error: {
         code: number
         type: string
         info: string
     }
 
-    constructor(apiResponseError : IApiResponseError){
+    constructor(apiResponseError: IApiResponseError) {
         this.success = apiResponseError.success
         this.error = apiResponseError.error
     }
@@ -35,4 +35,3 @@ export interface IApiResponseError {
         info: string
     }
 }
-

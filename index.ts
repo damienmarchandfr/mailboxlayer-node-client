@@ -6,39 +6,32 @@ import { Email } from './models/data/Email';
 import { isRegExp } from 'util';
 
 export class MailBoxLayer {
-    private config : IConfig
+    private config: IConfig
 
-    constructor(config : IConfig){
-        if(config.cache && !config.connector){
+    constructor(config: IConfig) {
+        if (config.cache && !config.connector) {
             throw new Error('If cache is true you muste provide a connector')
         }
         this.config = config
     }
 
-    private generateApiUrl(email : string) : string{
-        const protocol = this.config.secure ? 'https://' : 'http://'
-        return protocol + 'apilayer.net/api/check?access_key='+this.config.accessKey+'&email='+email+'&smtp='+(this.config.smtp ? 1 : 0)
-    }
-
-    async getInformations(email : string) : Promise<Email> {
+    public async getInformations(email: string): Promise<Email> {
         const options = {
             uri: this.generateApiUrl(email),
             json: true
         }
 
-        if(this.config.cache && this.config.connector){
+        if (this.config.cache && this.config.connector) {
             const emailFromDb = await this.config.connector.getEmailInfo(email)
-            if(emailFromDb !== null){
+            if (emailFromDb !== null) {
                 return emailFromDb
             }
         }
 
-        console.log('YO')
-
         // If not in database or no storage given make an API request
         const apiResponse = await rp(options)
 
-        if(apiResponse.hasOwnProperty('success')){
+        if (apiResponse.hasOwnProperty('success')) {
             throw new MailBoxLayerError(apiResponse as IApiResponseError)
         }
 
@@ -46,10 +39,15 @@ export class MailBoxLayer {
         emailFromApi.fromAPIResponse(apiResponse as IApiResponse)
 
         // Save in database
-        if(this.config.cache && this.config.connector){
+        if (this.config.cache && this.config.connector) {
             await this.config.connector.addEmailInfo(emailFromApi)
-        }     
-        
+        }
+
         return emailFromApi
+    }
+
+    private generateApiUrl(email: string): string {
+        const protocol = this.config.secure ? 'https://' : 'http://'
+        return protocol + 'apilayer.net/api/check?access_key=' + this.config.accessKey + '&email=' + email + '&smtp=' + (this.config.smtp ? 1 : 0)
     }
 }
