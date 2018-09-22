@@ -6,26 +6,36 @@ export class MongoConnector extends AbstractConnector {
     private config : IMongoConnectorConfig
 
     private db : Db = {} as Db
+    private initialized : boolean
     
     constructor(config : IMongoConnectorConfig){
         super()
         this.config = config
+        this.initialized = false
     }
 
-    async init(){ 
-        const mongoClient = await MongoClient.connect(this.config.url)      
+    private async init(){ 
+        const mongoClient = await MongoClient.connect(this.config.url,{ useNewUrlParser: true })      
         this.db = mongoClient.db(this.config.dbName)
     }
 
     async getEmailInfo(email : string) : Promise<Email> {
+        if(!this.initialized){
+            await this.init()
+        }
         const emailFromDb = await this.db.collection('emails').findOne({email}) as Email
         // Update email in database
-        await this.db.collection('emails').updateOne({email},{lastReadDate : new Date(),numberOfrequests : emailFromDb.numberOfrequests++})
+        if(emailFromDb){
+            await this.db.collection('emails').updateOne({email},{lastReadDate : new Date(),numberOfrequests : emailFromDb.numberOfrequests+1})
+        }
         return emailFromDb
     }
 
     async addEmailInfo(email : Email) : Promise<Email>{
-        await this.db.collection('email').update({email},email,{upsert : true})
+        if(!this.initialized){
+            await this.init()
+        }
+        await this.db.collection('email').save(email)
         return email
     }
 }

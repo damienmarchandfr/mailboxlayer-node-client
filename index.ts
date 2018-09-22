@@ -28,10 +28,12 @@ export class MailBoxLayer {
 
         if(this.config.cache && this.config.connector){
             const emailFromDb = await this.config.connector.getEmailInfo(email)
-            if(emailFromDb){
+            if(emailFromDb !== null){
                 return emailFromDb
             }
         }
+
+        console.log('YO')
 
         // If not in database or no storage given make an API request
         const apiResponse = await rp(options)

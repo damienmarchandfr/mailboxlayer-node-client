@@ -1,4 +1,4 @@
-import {MailBoxLayer} from '../index'
+import {MailBoxLayer} from '..'
 import {accessKey} from './config'
 // Without storage
 const mailBoxLayer = new MailBoxLayer({accessKey,smtp : true, catchAll : true,secure : false})
