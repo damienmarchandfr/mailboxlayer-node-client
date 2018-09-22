@@ -46,6 +46,8 @@ export class MailBoxLayer {
         // Save in database
         if(this.config.cache && this.config.connector){
             await this.config.connector.addEmailInfo(emailFromApi)
-        }        
+        }     
+        
+        return emailFromApi
     }
 }

@@ -1,6 +1,6 @@
 import { IApiResponseError } from "../IResponse";
 
-const errors = {
+const errors : any = {
     404	 : '404 not found'	,
     101	 : 'missing access key or invalid access key',
     103	 : 'invalid api function',
@@ -20,6 +20,6 @@ export class MailBoxLayerError extends Error {
     constructor(apiResponse : IApiResponseError){
         super(apiResponse.error.info)
         this.code = errors[apiResponse.error.code]
-        this.apiResponseError = this.apiResponseError
+        this.apiResponseError = apiResponse
     } 
 }

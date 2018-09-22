@@ -5,7 +5,7 @@ import { Email } from "../models/data/Email";
 export class MongoConnector extends AbstractConnector {
     private config : IMongoConnectorConfig
 
-    private db : Db
+    private db : Db = {} as Db
     
     constructor(config : IMongoConnectorConfig){
         super()
@@ -19,6 +19,8 @@ export class MongoConnector extends AbstractConnector {
 
     async getEmailInfo(email : string) : Promise<Email> {
         const emailFromDb = await this.db.collection('emails').findOne({email}) as Email
+        // Update email in database
+        await this.db.collection('emails').updateOne({email},{lastReadDate : new Date(),numberOfrequests : emailFromDb.numberOfrequests++})
         return emailFromDb
     }
 

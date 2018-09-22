@@ -6,10 +6,10 @@ export abstract class AbstractConnector {
     }
 
     public async getEmailInfo(email : string) : Promise<Email> {
-        return 
+        return new Email('toto@toto.com')
     }
 
     public async addEmailInfo(email : Email) : Promise<Email>{
-        return
+        return new Email('toto@toto.com')
     }
 }

@@ -3,23 +3,22 @@ import { IApiResponse } from "../IResponse";
 export class Email {
     email : string
     
-    lastReadDate : Date
-    lastUpdateDate : Date
-    creationDate : Date
+    lastReadDate : Date = new Date()
+    creationDate : Date = new Date()
 
-    numberOfrequests : number
+    numberOfrequests : number = 1
 
-    didYouMean : string
-    user: string
-    domain : string
-    formatValid: boolean
-    mxFound : boolean
-    smtpChecked : boolean
-    catchAll : boolean
-    role : boolean
-    disposable : boolean
-    free : boolean
-    score : number
+    didYouMean : string = ''
+    user: string = ''
+    domain : string = ''
+    formatValid: boolean = true
+    mxFound : boolean = true
+    smtpChecked : boolean = true
+    catchAll : boolean = true
+    role : boolean = true
+    disposable : boolean = false
+    free : boolean = true
+    score : number = 1
 
     constructor(email : string){
         this.email = email
