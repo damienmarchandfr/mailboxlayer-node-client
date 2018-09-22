@@ -1,7 +1,9 @@
 import { IConfig } from './models/IConfig';
 import * as rp from 'request-promise'
-import { IApiResponse, Response, IApiResponseError } from './models/IResponse';
+import { IApiResponse, IApiResponseError } from './models/IResponse';
 import { MailBoxLayerError } from './models/errors/MailBoxLayer.error';
+import { Email } from './models/data/Email';
+import { isRegExp } from 'util';
 
 export class MailBoxLayer {
     private config : IConfig
@@ -18,30 +20,32 @@ export class MailBoxLayer {
         return protocol + 'apilayer.net/api/check?access_key='+this.config.accessKey+'&email='+email+'&smtp='+(this.config.smtp ? 1 : 0)
     }
 
-    async getInformations(email : string) : Promise<Response> {
+    async getInformations(email : string) : Promise<Email> {
         const options = {
             uri: this.generateApiUrl(email),
             json: true
         }
-        
-        // Check if email already in database
 
+        if(this.config.cache && this.config.connector){
+            const emailFromDb = await this.config.connector.getEmailInfo(email)
+            if(emailFromDb){
+                return emailFromDb
+            }
+        }
 
-        // If not in database make an API request
+        // If not in database or no storage given make an API request
+        const apiResponse = await rp(options)
 
-
-        // Save in database
-        
-        
-
-        const apiResponse : any = await rp(options)
-
-        // Got error
         if(apiResponse.hasOwnProperty('success')){
             throw new MailBoxLayerError(apiResponse as IApiResponseError)
         }
 
-        // Convert to Response
-        return new Response(apiResponse as IApiResponse)
+        const emailFromApi = new Email(email)
+        emailFromApi.fromAPIResponse(apiResponse as IApiResponse)
+
+        // Save in database
+        if(this.config.cache && this.config.connector){
+            await this.config.connector.addEmailInfo(emailFromApi)
+        }        
     }
 }

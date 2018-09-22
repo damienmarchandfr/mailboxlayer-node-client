@@ -1,21 +1,30 @@
 import { AbstractConnector } from "./AbstractConnector";
 import { MongoClient, Db } from "mongodb";
+import { Email } from "../models/data/Email";
 
 export class MongoConnector extends AbstractConnector {
     private config : IMongoConnectorConfig
 
     private db : Db
-    private initialized = false
     
     constructor(config : IMongoConnectorConfig){
         super()
         this.config = config
     }
 
-    async init(){
-        this.initialized = true  
+    async init(){ 
         const mongoClient = await MongoClient.connect(this.config.url)      
         this.db = mongoClient.db(this.config.dbName)
+    }
+
+    async getEmailInfo(email : string) : Promise<Email> {
+        const emailFromDb = await this.db.collection('emails').findOne({email}) as Email
+        return emailFromDb
+    }
+
+    async addEmailInfo(email : Email) : Promise<Email>{
+        await this.db.collection('email').update({email},email,{upsert : true})
+        return email
     }
 }
 
