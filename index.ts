@@ -29,7 +29,7 @@ export class MailBoxLayer {
         }
 
         // If not in database or no storage given make an API request
-        const apiResponse = await rp(options)
+        const apiResponse = await rp.get(options)
 
         if (apiResponse.hasOwnProperty('success')) {
             throw new MailBoxLayerError(apiResponse as IApiResponseError)
@@ -48,6 +48,7 @@ export class MailBoxLayer {
 
     private generateApiUrl(email: string): string {
         const protocol = this.config.secure ? 'https://' : 'http://'
-        return protocol + 'apilayer.net/api/check?access_key=' + this.config.accessKey + '&email=' + email + '&smtp=' + (this.config.smtp ? 1 : 0)
+        return protocol + 'apilayer.net/api/check?access_key=' +
+         this.config.accessKey + '&email=' + email + '&smtp=' + (this.config.smtp ? 1 : 0)
     }
 }

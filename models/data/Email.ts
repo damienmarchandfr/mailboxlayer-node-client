@@ -34,4 +34,12 @@ export class Email {
         this.score = apiResponse.score
     }
 
+    public canBeUseForTransactions(): boolean {
+        return this.score >= 0.65
+    }
+
+    public canbeUsedForMarketing(): boolean {
+        return this.score >= 0.8
+    }
+
 }
