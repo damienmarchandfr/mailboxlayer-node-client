@@ -2,7 +2,7 @@ import { Email } from '../models/data/Email';
 
 export abstract class AbstractConnector {
 
-    public async getEmailInfo(email: string): Promise<Email> {
+    public async getEmailInfo(email: string): Promise<Email | null> {
         return new Email('toto@toto.com')
     }
 

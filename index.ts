@@ -3,7 +3,6 @@ import * as rp from 'request-promise'
 import { IApiResponse, IApiResponseError } from './models/IResponse';
 import { MailBoxLayerError } from './models/errors/MailBoxLayer.error';
 import { Email } from './models/data/Email';
-import { isRegExp } from 'util';
 
 export class MailBoxLayer {
     private config: IConfig
@@ -24,9 +23,12 @@ export class MailBoxLayer {
         if (this.config.cache && this.config.connector) {
             const emailFromDb = await this.config.connector.getEmailInfo(email)
             if (emailFromDb !== null) {
+                console.log('ok')
                 return emailFromDb
             }
         }
+
+        console.log('nio')
 
         // If not in database or no storage given make an API request
         const apiResponse = await rp.get(options)

@@ -17,7 +17,7 @@ export class MongoConnector extends AbstractConnector {
         this.initialized = false
     }
 
-    public async getEmailInfo(email: string): Promise<Email> {
+    public async getEmailInfo(email: string): Promise<Email | null> {
         if (!this.initialized) {
             await this.init()
         }
