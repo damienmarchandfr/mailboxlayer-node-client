@@ -4,6 +4,7 @@ import * as rp from 'request-promise'
 import * as sinon from 'sinon'
 import { MailBoxLayer } from '../..';
 import { Email } from '../../models/data/Email';
+import { MailBoxLayerError } from '../../models/errors/MailBoxLayer.error';
 
 const apiResponse: any = {
     email: 'support@apilayer.com',
@@ -20,11 +21,21 @@ const apiResponse: any = {
     score: 0.8
 }
 
+const apiResponseError: any = {
+  success: false,
+  error: {
+    code: 210,
+    type: 'no_email_address_supplied',
+    info: 'Please specify an email address. [Example: support@apilayer.com]'
+  }
+}
+
 let mailBoxLayer: MailBoxLayer
+let stub: sinon.SinonStub
 
 describe('Test MailBoxLayer class', () => {
     before(() => {
-        sinon.stub(rp, 'get').resolves(apiResponse)
+        stub = sinon.stub(rp, 'get').resolves(apiResponse)
 
         mailBoxLayer = new MailBoxLayer({
             accessKey : 'fdfjskl',
@@ -33,6 +44,11 @@ describe('Test MailBoxLayer class', () => {
             secure : false,
             smtp : false
         })
+    })
+
+    afterEach(() => {
+        stub.restore()
+        stub = sinon.stub(rp, 'get').resolves(apiResponse)
     })
 
     it('should return mail info like api response in camel case', async () => {
@@ -65,5 +81,16 @@ describe('Test MailBoxLayer class', () => {
         info.score = 0.3
         expect(info.canbeUsedForMarketing()).to.be.false
         expect(info.canbeUsedForMarketing()).to.be.false
+    })
+
+    it('should throw error if API error', async () => {
+        stub.restore()
+        sinon.stub(rp, 'get').resolves(apiResponseError)
+
+        try {
+            await mailBoxLayer.getInformations('damien@marchand.fr')
+        } catch (err) {
+            expect(err.code).to.eql(apiResponseError.error.code)
+        }
     })
 });

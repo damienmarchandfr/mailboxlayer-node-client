@@ -19,7 +19,8 @@ export class MailBoxLayerError extends Error {
 
     constructor(apiResponse: IApiResponseError) {
         super(apiResponse.error.info)
-        this.code = errors[apiResponse.error.code]
+        this.code = apiResponse.error.code
+        this.message = errors[apiResponse.error.code]
         this.apiResponseError = apiResponse
     }
 }
