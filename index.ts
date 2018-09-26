@@ -28,8 +28,6 @@ export class MailBoxLayer {
             }
         }
 
-        console.log('nio')
-
         // If not in database or no storage given make an API request
         const apiResponse = await rp.get(options)
 

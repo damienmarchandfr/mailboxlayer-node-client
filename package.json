@@ -19,6 +19,7 @@
     "@types/request-promise": "^4.1.42",
     "@types/sinon": "^5.0.2",
     "chai": "^4.1.2",
+    "firebase-mock": "^2.2.7",
     "mocha": "^5.2.0",
     "pre-commit": "^1.2.2",
     "sinon": "^6.3.4",

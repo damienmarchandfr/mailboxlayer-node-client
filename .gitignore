@@ -1,2 +1,4 @@
 node_modules
 examples/config.ts
+yarn-error.log
+dump.rdb
