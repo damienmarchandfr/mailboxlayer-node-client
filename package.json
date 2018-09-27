@@ -29,9 +29,10 @@
     "typescript": "^3.0.3"
   },
   "scripts": {
-    "test": "mocha -r ts-node/register ./tests/**/*.test.ts --exit --reporter nyan"
+    "test": "mocha -r ts-node/register ./tests/**/*.test.ts --exit --reporter nyan",
+    "test:docker" : "sudo docker-compose up --force-recreate --always-recreate-deps --build --abort-on-container-exit -V"
   },
   "pre-commit": [
-    "test"
+    "test:docker"
   ]
 }
