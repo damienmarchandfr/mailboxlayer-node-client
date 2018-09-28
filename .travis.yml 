@@ -3,10 +3,5 @@ sudo: required
 services:
     - docker
 
-branches:
-  only:
-    - master
-    - develop
-
 script:
-    - docker-compose up --force-recreate --always-recreate-deps --build --abort-on-container-exit -V
+    - npm test:docker
