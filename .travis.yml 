@@ -4,4 +4,4 @@ services:
     - docker
 
 script:
-    - npm test:docker
+    - npm run test:docker
