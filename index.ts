@@ -23,7 +23,6 @@ export class MailBoxLayer {
         if (this.config.cache && this.config.connector) {
             const emailFromDb = await this.config.connector.getEmailInfo(email)
             if (emailFromDb !== null) {
-                console.log('ok')
                 return emailFromDb
             }
         }

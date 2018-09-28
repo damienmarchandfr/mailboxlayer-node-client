@@ -19,6 +19,7 @@ const redisConnector = new RedisConnector(redisClient)
 const memoryConnector = new MemoryConnector()
 
 // ----------------- MONGO -------------------
+
 new Promise((resolve) => {resolve()})
 .then(async () => {
     const mongoClient = await MongoClient.connect(mongoConfig.serverUrl, { useNewUrlParser: true })
@@ -46,10 +47,12 @@ new Promise((resolve) => {resolve()})
 .then(async () => {
     try {
         const mailBoxLayer = new MailBoxLayer({
-            accessKey, smtp : true,
+            accessKey,
+            smtp : true,
             catchAll : true,
             secure : false,
-            cache : true, connector: redisConnector
+            cache : true,
+            connector: redisConnector
         })
         const email = await mailBoxLayer.getInformations('zynefaty@duck2.club')
         console.log(email)
@@ -59,8 +62,7 @@ new Promise((resolve) => {resolve()})
 })
 
 // --------------- MEMORY -------------------
-// Do not use memory for production )
-
+// Do not use memory for production
 new Promise((resolve) => {resolve()})
 .then(async () => {
     try {

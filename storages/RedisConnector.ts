@@ -3,7 +3,7 @@ import { Email } from '../models/data/Email';
 import * as redis from 'redis'
 
 export class RedisConnector extends AbstractConnector {
-    private redisClient: redis.RedisClient
+    private redisClient: any
 
     constructor(redisClient: redis.RedisClient) {
         super()
@@ -11,17 +11,17 @@ export class RedisConnector extends AbstractConnector {
     }
 
     public async addEmailInfo(email: Email): Promise<Email> {
-        const exists = await this.redisClient.exists(email.email)
-        if (!exists) {
-            await this.redisClient.set(email.email, JSON.stringify(email))
+        const num: number = await this.redisClient.existsAsync(email.email)
+        if (num === 0) {
+            await this.redisClient.setAsync(email.email, JSON.stringify(email))
         }
         return email
     }
 
     public async getEmailInfo(email: string): Promise<Email | null> {
-        const data = await this.redisClient.get(email)
-        if (data) {
-            return JSON.parse(data as any) as Email
+        const emails: string[] = await this.redisClient.mgetAsync(email)
+        if (emails.length) {
+            return JSON.parse(emails[0]) as Email
         }
         return null
     }
