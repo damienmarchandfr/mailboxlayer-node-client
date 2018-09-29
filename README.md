@@ -67,7 +67,7 @@ You can use :
 
  - Memory ( do not use in production )
  - MongoDB [npm link](https://www.npmjs.com/package/mongodb)
- - Redis	[npm link](https://www.npmjs.com/package/redis)
+ - Redis ( with bluebird ) [npm link](https://www.npmjs.com/package/redis)
 
 For example with MongoDB : ( you can find examples in /exemples directory )
 
@@ -93,6 +93,44 @@ For example with MongoDB : ( you can find examples in /exemples directory )
 		    }
 	    })
 
+## Response
+
+This is the object return after an API request ( Email class )
+
+    {
+        // Email you wanna test
+        email: string
+        // Alternative email suggestion 
+        didYouMean: string = ''
+        // "paul" in "paul@company.com'
+        user: string = ''
+        // "company.com" in "paul@company.com"
+        domain: string = ''
+        // depending on whether or not the general syntax of the requested email address is valid
+        formatValid: boolean = true
+        // depending on whether or not MX-Records for the requested domain could be found
+        mxFound: boolean = true
+        // depending on whether or not the SMTP check of the requested email address succeeded
+        smtpChecked: boolean = true
+        // depending on whether or not the requested email address is found to be part of a catch-all mailbox
+        catchAll: boolean = true
+        // depending on whether or not the requested email address is a role email address. ( true if support@yop.com )
+        role: boolean = true
+        // depending on whether or not the requested email address is a disposable email address
+        disposable: boolean = false
+        // depending on whether or not the requested email address is a free email address
+        free: boolean = true
+        // reflecting the quality and deliverability of the requested email address
+        score: number = 1
+    }
+
+Email class has some methods :
+
+    canBeUseForTransactions()
+    canbeUsedForMarketing()
+    
+
+
 ## Stop Callbacks ! Use Promises
 
 This lib do not use callback. Use promise instead
@@ -112,4 +150,3 @@ or
 ![redis](https://image.ibb.co/hRz07U/redis.png)
 
 ![mongodb](https://image.ibb.co/cYYhMp/mongodb.png)
-
