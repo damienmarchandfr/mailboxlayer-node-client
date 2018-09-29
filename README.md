@@ -93,8 +93,6 @@ For example with MongoDB : ( you can find examples in /exemples directory )
 		    }
 	    })
 
-<<<<<<< HEAD
-=======
 ## Response
 
 This is the object return after an API request ( Email class )
@@ -133,7 +131,6 @@ Email class has some methods :
     
 
 
->>>>>>> master
 ## Stop Callbacks ! Use Promises
 
 This lib do not use callback. Use promise instead
@@ -153,7 +150,3 @@ or
 ![redis](https://image.ibb.co/hRz07U/redis.png)
 
 ![mongodb](https://image.ibb.co/cYYhMp/mongodb.png)
-<<<<<<< HEAD
-
-=======
->>>>>>> master
