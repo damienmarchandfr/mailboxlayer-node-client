@@ -54,27 +54,4 @@ describe('Test Redis connector : ', () => {
             expect((result as any)[key]).to.eql((email as any)[key])
         }
     })
-
-    it('should not save duplicate emails in database', async () => {
-        const result = await redisConnector.getEmailInfo(emailToTest)
-        expect(result).to.be.null
-        const email = {
-            email : emailToTest,
-            catchAll : true,
-            didYouMean : 'damien@damien.fr',
-            disposable : false,
-            domain : 'marchand.fr',
-            formatValid : true,
-            free : true,
-            mxFound : true,
-            role : true,
-            score : 1,
-            smtpChecked : true,
-            user : 'damien'
-        } as Email
-        await redisConnector.addEmailInfo(email)
-        await redisConnector.addEmailInfo(email)
-        // const count = await mongoCollection.countDocuments({email : emailToTest})
-        // expect(count).to.eql(1)
-    })
 });
