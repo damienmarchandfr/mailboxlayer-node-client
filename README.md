@@ -130,7 +130,6 @@ Email class has some methods :
     canbeUsedForMarketing()
     
 
-
 ## Stop Callbacks ! Use Promises
 
 This lib do not use callback. Use promise instead
