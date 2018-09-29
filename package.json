@@ -1,7 +1,18 @@
 {
-  "name": "email",
+  "name": "mailboxlayer-node-client",
   "version": "1.0.0",
-  "main": "index.js",
+  "author": {
+    "email": "damien-marchand@outlook.fr",
+    "name": "Damien Marchand"
+  },
+  "description": "Client for MailBoxLayer API in TypeScript. Database can be connected to store email informations.",
+  "keywords": [
+    "mailboxlayer","api","client","node"
+  ],
+  "repository": {
+    "url": "https://github.com/damienmarchandfr/mailboxlayer-node-client"
+  },
+  "main": "index.ts",
   "license": "MIT",
   "dependencies": {
     "bluebird": "^3.5.2",
