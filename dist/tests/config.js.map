@@ -1,0 +1,1 @@
+{"version":3,"file":"config.js","sourceRoot":"","sources":["../../tests/config.ts"],"names":[],"mappings":";;AAAc,QAAA,WAAW,GAAG;IACxB,YAAY,EAAG,sBAAsB;IACrC,SAAS,EAAG,uBAAuB;CACtC,CAAA","sourcesContent":["export const  mongoConfig = {\n    databaseName : 'mongo-connector-test',\n    serverUrl : 'mongodb://mongo:27017'\n}\n"]}

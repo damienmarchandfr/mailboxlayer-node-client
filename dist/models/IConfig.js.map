@@ -1,0 +1,1 @@
+{"version":3,"file":"IConfig.js","sourceRoot":"","sources":["../../models/IConfig.ts"],"names":[],"mappings":"","sourcesContent":["import { AbstractConnector } from '../storages/AbstractConnector';\n\nexport interface IConfig {\n    accessKey: string\n    smtp: boolean\n    catchAll: boolean\n    secure: boolean\n    cache?: boolean\n    connector?: AbstractConnector\n}\n"]}

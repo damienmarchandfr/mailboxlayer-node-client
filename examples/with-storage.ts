@@ -1,5 +1,4 @@
 import {MailBoxLayer} from '..'
-import {accessKey, mongoConfig} from './config'
 import * as redis from 'redis'
 
 import * as bluebird from 'bluebird'
@@ -22,13 +21,14 @@ const memoryConnector = new MemoryConnector()
 
 new Promise((resolve) => {resolve()})
 .then(async () => {
-    const mongoClient = await MongoClient.connect(mongoConfig.serverUrl, { useNewUrlParser: true })
-    const db = mongoClient.db(mongoConfig.databaseName)
+    const mongoClient = await MongoClient.connect('mongo_server_url', { useNewUrlParser: true })
+    const db = mongoClient.db('mongo_database_name')
     const mongoCollection = db.collection('email')
     const mongoConnector = new MongoConnector(mongoCollection)
     try {
         const mailBoxLayer = new MailBoxLayer({
-            accessKey, smtp : true,
+            accessKey : 'your_access_key',
+            smtp : true,
             catchAll : true,
             secure : false,
             cache : true,
@@ -47,7 +47,7 @@ new Promise((resolve) => {resolve()})
 .then(async () => {
     try {
         const mailBoxLayer = new MailBoxLayer({
-            accessKey,
+            accessKey : 'your_access_key',
             smtp : true,
             catchAll : true,
             secure : false,
@@ -67,7 +67,8 @@ new Promise((resolve) => {resolve()})
 .then(async () => {
     try {
         const mailBoxLayer = new MailBoxLayer({
-            accessKey, smtp : true,
+            accessKey : 'your_access_key',
+            smtp : true,
             catchAll : true,
             secure : false,
             cache : true, connector: memoryConnector

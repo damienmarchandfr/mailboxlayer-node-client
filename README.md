@@ -1,8 +1,10 @@
 ## MailBoxLayer Node Client
 
-This TypeSript library can be used to get email informations.
+This library can be used to get email informations.
 You can enable cache and store email informations  in database to make less request to the API and get results faster.
 It uses MailBoxLayer API : https://mailboxlayer.com
+
+**This lib is made in TypeScript but you can access to JavaScript code in /dist directory**
 
 ## Installation
 
@@ -29,7 +31,7 @@ MailboxLayer constructor have a IConfig parameter
 	    accessKey:  string
 	    // Required : if you want the API to perform SMTP checks
 	    smtp:  boolean
-	    // Required : The mailboxlayer API's real-time verification process does not end with one 			    SMTP check ( lower if true )
+	    // Required : The mailboxlayer API's real-time verification process does not end with one SMTP check
 	    catchAll:  boolean
 	    // Required : http or https
 	    secure:  boolean
@@ -59,7 +61,6 @@ MailboxLayer constructor have a IConfig parameter
 		.catch(err  => {
 			console.error(err)
 		})
-
 
 ## With cache
 
