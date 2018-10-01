@@ -1,10 +1,9 @@
 ## MailBoxLayer Node Client
+This library can be used to get email information.
+To get faster results, it is possible to enable the cache feature to store 1st-request email information in a database. This allows to reduce the number of API calls. 
+It uses the MailBoxLayer API: https://mailboxlayer.com
 
-This library can be used to get email informations.
-You can enable cache and store email informations  in database to make less request to the API and get results faster.
-It uses MailBoxLayer API : https://mailboxlayer.com
-
-**This lib is made in TypeScript but you can access to JavaScript code in /dist directory**
+**This lib is made in TypeScript but you can access JavaScript code in the /dist directory**
 
 ## Installation
 
@@ -19,25 +18,25 @@ or
 
 ## Configuration
 
-Before using the mailboxlayer API client you have to setup your account and obtain your API Access Key.
-You can get it by signing up at https://mailboxlayerlayer.com/product.
+Before using the mailboxlayer API client, set up your account and obtain your API Access Key.
+To get your Access Key, sign up at https://mailboxlayerlayer.com/product
 
 ## SETUP
 
-MailboxLayer constructor have a IConfig parameter
+MailboxLayer constructor has an IConfig parameter:
 
     interface  IConfig {
-	    // Required : Given by mailbox after registration
+	    // Given by mailbox after registration (Required) 
 	    accessKey:  string
-	    // Required : if you want the API to perform SMTP checks
+	    // If you want the API to perform SMTP checks (Required)
 	    smtp:  boolean
-	    // Required : The mailboxlayer API's real-time verification process does not end with one SMTP check
+	    //  The real-time verification process of the MailBoxLayer API does not end with one SMTP check (Required) 
 	    catchAll:  boolean
-	    // Required : http or https
+	    // http or https (Required)
 	    secure:  boolean
-	    // If you want to use database to save api response
+	    // If you want to use a database to save API responses (Optional)
 	    cache?:  boolean
-	    // Database connector ( required if cache === true )
+	    // Database connector (Required if cache === true)
 	    connector?:  AbstractConnector
     }
 
@@ -64,13 +63,12 @@ MailboxLayer constructor have a IConfig parameter
 
 ## With cache
 
-You can use :
-
- - Memory ( do not use in production )
+With cache, you can use the following types of storage:
+ - Memory (do not use in production)
  - MongoDB [npm link](https://www.npmjs.com/package/mongodb)
- - Redis ( with bluebird ) [npm link](https://www.npmjs.com/package/redis)
+ - Redis (with bluebird) [npm link](https://www.npmjs.com/package/redis)
 
-For example with MongoDB : ( you can find examples in /exemples directory )
+For example, with MongoDB: (you can find more examples in the /examples directory)
 
 	    new  Promise((resolve) => {resolve()})
 		    .then(async () => {
@@ -96,10 +94,10 @@ For example with MongoDB : ( you can find examples in /exemples directory )
 
 ## Response
 
-This is the object return after an API request ( Email class )
+The following lines show the object returned after an API request (Email class):
 
     {
-        // Email you wanna test
+        // Email to test
         email: string
         // Alternative email suggestion 
         didYouMean: string = ''
@@ -107,37 +105,37 @@ This is the object return after an API request ( Email class )
         user: string = ''
         // "company.com" in "paul@company.com"
         domain: string = ''
-        // depending on whether or not the general syntax of the requested email address is valid
+        // Depends on whether the general syntax of the requested email address is valid or not 
         formatValid: boolean = true
-        // depending on whether or not MX-Records for the requested domain could be found
+        // Depends on whether MX-Records for the requested domain could be found or not 
         mxFound: boolean = true
-        // depending on whether or not the SMTP check of the requested email address succeeded
+        // Depends on whether the SMTP check of the requested email address succeeded or not
         smtpChecked: boolean = true
-        // depending on whether or not the requested email address is found to be part of a catch-all mailbox
+        // Depends on whether the requested email address is found to be part of a catch-all mailbox or not
         catchAll: boolean = true
-        // depending on whether or not the requested email address is a role email address. ( true if support@yop.com )
+        // Depends on whether the requested email address is a role email address or not. (true if support@yop.com)
         role: boolean = true
-        // depending on whether or not the requested email address is a disposable email address
+        // Depends on whether the requested email address is a disposable email address or not
         disposable: boolean = false
-        // depending on whether or not the requested email address is a free email address
+        // Depends on whether the requested email address is a free email address or not
         free: boolean = true
-        // reflecting the quality and deliverability of the requested email address
+        // Reflects the quality and deliverability of the requested email address
         score: number = 1
     }
 
-Email class has some methods :
+Email class has the following methods:
 
     canBeUseForTransactions()
     canbeUsedForMarketing()
     
 
-## Stop Callbacks ! Use Promises
+## Stop Callbacks! Use Promises
 
-This lib do not use callback. Use promise instead
+This library does not use callback. Use promise instead.
 
 ## Tests
 
-In order to run the tests, no environment variables needs to be set. ( Docker must be installed ) 
+In order to run the tests, no environment variables need to be set. Only Docker needs to be installed.
 
     yarn run test:docker
 
@@ -145,7 +143,7 @@ or
 
     npm run test:docker
 
-## Connectors that can be used with this lib
+## Connectors that can be used with this library
 
 ![redis](https://image.ibb.co/hRz07U/redis.png)
 
