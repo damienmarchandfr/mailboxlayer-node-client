@@ -16,7 +16,7 @@ describe('Test Memory connector : ', () => {
         memoryConnector.emails = []
     })
 
-    it('should return null if email not saved un database', async () => {
+    it('should return null if email not saved in database', async () => {
         const result = await memoryConnector.getEmailInfo(emailToTest)
         expect(result).to.be.null
     })

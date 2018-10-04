@@ -65,6 +65,7 @@ MailboxLayer constructor has an IConfig parameter:
 
 With cache, you can use the following types of storage:
  - Memory (do not use in production)
+ - Files (do not use in production)
  - MongoDB [npm link](https://www.npmjs.com/package/mongodb)
  - Redis (with bluebird) [npm link](https://www.npmjs.com/package/redis)
 
@@ -144,6 +145,8 @@ or
     npm run test:docker
 
 ## Connectors that can be used with this library
+
+![files](https://image.ibb.co/g6hypK/if_Artboard_9_2993435.png)
 
 ![redis](https://image.ibb.co/hRz07U/redis.png)
 
