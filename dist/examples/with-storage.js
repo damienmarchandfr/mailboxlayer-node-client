@@ -45,11 +45,13 @@ var RedisConnector_1 = require("../storages/RedisConnector");
 var mongodb_1 = require("mongodb");
 var MongoConnector_1 = require("../storages/MongoConnector");
 var MemoryConnector_1 = require("../storages/MemoryConnector");
+var FileConnector_1 = require("../storages/FileConnector");
 var redisClient = redis.createClient({
     db: '6'
 });
 var redisConnector = new RedisConnector_1.RedisConnector(redisClient);
 var memoryConnector = new MemoryConnector_1.MemoryConnector();
+var fileConnector = new FileConnector_1.FileConnector('your-directory-path');
 // ----------------- MONGO -------------------
 new Promise(function (resolve) { resolve(); })
     .then(function () { return __awaiter(_this, void 0, void 0, function () {
@@ -139,6 +141,38 @@ new Promise(function (resolve) { resolve(); })
             case 2:
                 error_3 = _a.sent();
                 console.error(error_3);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); });
+// -------- FILES -------------
+// Do not use memory for production
+new Promise(function (resolve) {
+    resolve();
+})
+    .then(function () { return __awaiter(_this, void 0, void 0, function () {
+    var mailBoxLayer, email, error_4;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                mailBoxLayer = new __1.MailBoxLayer({
+                    accessKey: 'your_access_key',
+                    smtp: true,
+                    catchAll: true,
+                    secure: false,
+                    cache: true,
+                    connector: fileConnector
+                });
+                return [4 /*yield*/, mailBoxLayer.getInformations('zynefaty@duck2.club')];
+            case 1:
+                email = _a.sent();
+                console.log(email);
+                return [3 /*break*/, 3];
+            case 2:
+                error_4 = _a.sent();
+                console.error(error_4);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
