@@ -38,27 +38,127 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var chai_1 = require("chai");
 require("mocha");
-var MemoryConnector_1 = require("../../storages/MemoryConnector");
+var FileConnector_1 = require("../../storages/FileConnector");
+var fs = require("fs-extra");
+var rimraf = require("rimraf");
 var emailToTest = 'damien@marchand.fr';
-var memoryConnector;
-describe('Test Memory connector : ', function () {
+var fileConnector;
+var emailResponse = {
+    email: emailToTest,
+    catchAll: true,
+    didYouMean: 'damien@damien.fr',
+    disposable: false,
+    domain: 'marchand.fr',
+    formatValid: true,
+    free: true,
+    mxFound: true,
+    role: true,
+    score: 1,
+    smtpChecked: true,
+    user: 'damien'
+};
+var counter = 0;
+describe('Test File connector : ', function () {
     before(function () { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            memoryConnector = new MemoryConnector_1.MemoryConnector();
+            fileConnector = new FileConnector_1.FileConnector('./temp');
             return [2 /*return*/];
         });
     }); });
-    beforeEach(function () { return __awaiter(_this, void 0, void 0, function () {
+    after(function () { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            memoryConnector.emails = [];
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, new Promise(function (resolve) {
+                        rimraf('./temp', function (err) {
+                            resolve();
+                        });
+                    })];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    beforeEach(function () { return __awaiter(_this, void 0, void 0, function () {
+        var errorDelete, error_1, errorAccess, error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    errorDelete = new Error();
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, new Promise(function (resolve, reject) {
+                            rimraf('./temp', function (err) {
+                                if (err) {
+                                    reject(err);
+                                }
+                                resolve();
+                            });
+                        })];
+                case 2:
+                    _a.sent();
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_1 = _a.sent();
+                    errorDelete = error_1;
+                    return [3 /*break*/, 4];
+                case 4:
+                    if (counter === 0) {
+                        chai_1.expect(errorDelete.message).not.to.be.undefined;
+                    }
+                    else {
+                        chai_1.expect(errorDelete.message).to.be.empty;
+                    }
+                    errorAccess = new Error();
+                    _a.label = 5;
+                case 5:
+                    _a.trys.push([5, 7, , 8]);
+                    return [4 /*yield*/, fs.access('./temp')];
+                case 6:
+                    _a.sent();
+                    return [3 /*break*/, 8];
+                case 7:
+                    error_2 = _a.sent();
+                    errorAccess = error_2;
+                    return [3 /*break*/, 8];
+                case 8:
+                    chai_1.expect(errorAccess.message).not.to.be.undefined;
+                    counter++;
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('should create the folder and file', function () { return __awaiter(_this, void 0, void 0, function () {
+        var errorNotExists, error_3;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, fileConnector.addEmailInfo(emailResponse)];
+                case 1:
+                    _a.sent();
+                    errorNotExists = new Error();
+                    _a.label = 2;
+                case 2:
+                    _a.trys.push([2, 4, , 5]);
+                    return [4 /*yield*/, fs.access('./temp/' + emailResponse.email)];
+                case 3:
+                    _a.sent();
+                    return [3 /*break*/, 5];
+                case 4:
+                    error_3 = _a.sent();
+                    errorNotExists = error_3;
+                    return [3 /*break*/, 5];
+                case 5:
+                    chai_1.expect(errorNotExists.message).to.be.empty;
+                    return [2 /*return*/];
+            }
         });
     }); });
     it('should return null if email not saved in database', function () { return __awaiter(_this, void 0, void 0, function () {
         var result;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, memoryConnector.getEmailInfo(emailToTest)];
+                case 0: return [4 /*yield*/, fileConnector.getEmailInfo(emailToTest)];
                 case 1:
                     result = _a.sent();
                     chai_1.expect(result).to.be.null;
@@ -70,7 +170,7 @@ describe('Test Memory connector : ', function () {
         var result, email, _i, _a, key;
         return __generator(this, function (_b) {
             switch (_b.label) {
-                case 0: return [4 /*yield*/, memoryConnector.getEmailInfo(emailToTest)];
+                case 0: return [4 /*yield*/, fileConnector.getEmailInfo(emailToTest)];
                 case 1:
                     result = _b.sent();
                     chai_1.expect(result).to.be.null;
@@ -88,11 +188,18 @@ describe('Test Memory connector : ', function () {
                         smtpChecked: true,
                         user: 'damien'
                     };
-                    return [4 /*yield*/, memoryConnector.addEmailInfo(email)];
+                    return [4 /*yield*/, fileConnector.addEmailInfo(email)
+                        // File exists
+                    ];
                 case 2:
                     _b.sent();
-                    return [4 /*yield*/, memoryConnector.getEmailInfo(emailToTest)];
+                    // File exists
+                    return [4 /*yield*/, fs.access('./temp/' + email.email)];
                 case 3:
+                    // File exists
+                    _b.sent();
+                    return [4 /*yield*/, fileConnector.getEmailInfo(emailToTest)];
+                case 4:
                     result = _b.sent();
                     for (_i = 0, _a = Object.keys(email); _i < _a.length; _i++) {
                         key = _a[_i];
@@ -102,14 +209,11 @@ describe('Test Memory connector : ', function () {
             }
         });
     }); });
-    it('should not save duplicate emails in database', function () { return __awaiter(_this, void 0, void 0, function () {
-        var result, email, count;
+    it('should creae 2 files. One for each email', function () { return __awaiter(_this, void 0, void 0, function () {
+        var email, files;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, memoryConnector.getEmailInfo(emailToTest)];
-                case 1:
-                    result = _a.sent();
-                    chai_1.expect(result).to.be.null;
+                case 0:
                     email = {
                         email: emailToTest,
                         catchAll: true,
@@ -124,17 +228,20 @@ describe('Test Memory connector : ', function () {
                         smtpChecked: true,
                         user: 'damien'
                     };
-                    return [4 /*yield*/, memoryConnector.addEmailInfo(email)];
+                    return [4 /*yield*/, fileConnector.addEmailInfo(email)];
+                case 1:
+                    _a.sent();
+                    email.email = 'damien@github.fr';
+                    return [4 /*yield*/, fileConnector.addEmailInfo(email)];
                 case 2:
                     _a.sent();
-                    return [4 /*yield*/, memoryConnector.addEmailInfo(email)];
+                    return [4 /*yield*/, fs.readdir('./temp')];
                 case 3:
-                    _a.sent();
-                    count = memoryConnector.emails.length;
-                    chai_1.expect(count).to.eql(1);
+                    files = _a.sent();
+                    chai_1.expect(files.length).to.eql(2);
                     return [2 /*return*/];
             }
         });
     }); });
 });
-//# sourceMappingURL=MemoryConnector.test.js.map
+//# sourceMappingURL=FileConnector.test.js.map

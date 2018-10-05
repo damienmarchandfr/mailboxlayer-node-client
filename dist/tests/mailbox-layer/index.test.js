@@ -123,12 +123,13 @@ describe('Test MailBoxLayer class', function () {
         });
     }); });
     it('should throw error if API error', function () { return __awaiter(_this, void 0, void 0, function () {
-        var err_1;
+        var error, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     stub.restore();
                     sinon.stub(rp, 'get').resolves(apiResponseError);
+                    error = {};
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 3, , 4]);
@@ -138,9 +139,11 @@ describe('Test MailBoxLayer class', function () {
                     return [3 /*break*/, 4];
                 case 3:
                     err_1 = _a.sent();
-                    chai_1.expect(err_1.code).to.eql(apiResponseError.error.code);
+                    error = err_1;
                     return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                case 4:
+                    chai_1.expect(error.code).to.eql(apiResponseError.error.code);
+                    return [2 /*return*/];
             }
         });
     }); });

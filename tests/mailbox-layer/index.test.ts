@@ -86,10 +86,14 @@ describe('Test MailBoxLayer class', () => {
         stub.restore()
         sinon.stub(rp, 'get').resolves(apiResponseError)
 
+        let error: any = {}
+
         try {
             await mailBoxLayer.getInformations('damien@marchand.fr')
         } catch (err) {
-            expect(err.code).to.eql(apiResponseError.error.code)
+            error = err
         }
+
+        expect(error.code).to.eql(apiResponseError.error.code)
     })
 });
