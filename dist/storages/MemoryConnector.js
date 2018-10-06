@@ -59,13 +59,15 @@ var MemoryConnector = /** @class */ (function (_super) {
     }
     MemoryConnector.prototype.getEmailInfo = function (email) {
         return __awaiter(this, void 0, void 0, function () {
-            var result;
+            var result, info;
             return __generator(this, function (_a) {
                 result = this.emails.filter(function (emailFromStorage) {
                     return emailFromStorage.email === email;
                 });
                 if (result.length) {
-                    return [2 /*return*/, result[0]];
+                    info = result[0];
+                    info.alreadyInDatabase = true;
+                    return [2 /*return*/, info];
                 }
                 return [2 /*return*/, null];
             });

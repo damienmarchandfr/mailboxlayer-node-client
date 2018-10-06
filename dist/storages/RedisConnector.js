@@ -76,14 +76,16 @@ var RedisConnector = /** @class */ (function (_super) {
     };
     RedisConnector.prototype.getEmailInfo = function (email) {
         return __awaiter(this, void 0, void 0, function () {
-            var emails;
+            var emails, mail;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.redisClient.mgetAsync(email)];
                     case 1:
                         emails = _a.sent();
-                        if (emails.length) {
-                            return [2 /*return*/, JSON.parse(emails[0])];
+                        if (emails.length && emails[0] !== null) {
+                            mail = JSON.parse(emails[0]);
+                            mail.alreadyInDatabase = true;
+                            return [2 /*return*/, mail];
                         }
                         return [2 /*return*/, null];
                 }

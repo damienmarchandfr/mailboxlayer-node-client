@@ -4,6 +4,7 @@ import * as rp from 'request-promise'
 import * as sinon from 'sinon'
 import { MailBoxLayer } from '../..';
 import { Email } from '../../models/data/Email';
+import { MemoryConnector } from '../../storages/MemoryConnector';
 
 const apiResponse: any = {
     email: 'support@apilayer.com',
@@ -30,7 +31,10 @@ const apiResponseError: any = {
 }
 
 let mailBoxLayer: MailBoxLayer
+let mailBoxLayerWithCache: MailBoxLayer
 let stub: sinon.SinonStub
+
+const memoryConnector = new MemoryConnector()
 
 describe('Test MailBoxLayer class', () => {
     before(() => {
@@ -43,9 +47,19 @@ describe('Test MailBoxLayer class', () => {
             secure : false,
             smtp : false
         })
+
+        mailBoxLayerWithCache = new MailBoxLayer({
+            accessKey : 'fdfjskl',
+            cache : true,
+            catchAll : false,
+            secure : false,
+            smtp : false,
+            connector : memoryConnector
+        })
     })
 
     afterEach(() => {
+        memoryConnector.emails = []
         stub.restore()
         stub = sinon.stub(rp, 'get').resolves(apiResponse)
     })
@@ -65,7 +79,8 @@ describe('Test MailBoxLayer class', () => {
             disposable: false,
             free: false,
             score: 0.8,
-            smtpChecked : true
+            smtpChecked : true,
+            alreadyInDatabase : false
         }
 
         expect(JSON.parse(JSON.stringify(info))).to.eql(emailInfo)
@@ -95,5 +110,13 @@ describe('Test MailBoxLayer class', () => {
         }
 
         expect(error.code).to.eql(apiResponseError.error.code)
+    })
+
+    it('should return already in database === true if saved in database', async () => {
+        let info: Email = await mailBoxLayerWithCache.getInformations('support@apilayer.com')
+        expect(info.alreadyInDatabase).to.be.false
+
+        info = await mailBoxLayerWithCache.getInformations('support@apilayer.com')
+        expect(info.alreadyInDatabase).to.be.true
     })
 });

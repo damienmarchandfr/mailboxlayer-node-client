@@ -20,8 +20,11 @@ export class RedisConnector extends AbstractConnector {
 
     public async getEmailInfo(email: string): Promise<Email | null> {
         const emails: string[] = await this.redisClient.mgetAsync(email)
-        if (emails.length) {
-            return JSON.parse(emails[0]) as Email
+
+        if (emails.length && emails[0] !== null) {
+            const mail = JSON.parse(emails[0]) as Email
+            mail.alreadyInDatabase = true
+            return mail
         }
         return null
     }

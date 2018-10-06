@@ -89,7 +89,7 @@ var FileConnector = /** @class */ (function (_super) {
     };
     FileConnector.prototype.getEmailInfo = function (email) {
         return __awaiter(this, void 0, void 0, function () {
-            var error_2, content;
+            var error_2, content, mail;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -104,7 +104,9 @@ var FileConnector = /** @class */ (function (_super) {
                     case 3: return [4 /*yield*/, fs.readFile(this.path + '/' + email)];
                     case 4:
                         content = _a.sent();
-                        return [2 /*return*/, JSON.parse(content.toString())];
+                        mail = JSON.parse(content.toString());
+                        mail.alreadyInDatabase = true;
+                        return [2 /*return*/, mail];
                 }
             });
         });

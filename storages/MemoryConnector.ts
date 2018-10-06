@@ -16,8 +16,11 @@ export class MemoryConnector extends AbstractConnector {
         })
 
         if (result.length) {
-            return result[0]
+            const info = result[0]
+            info.alreadyInDatabase = true
+            return info
         }
+
         return null
     }
 

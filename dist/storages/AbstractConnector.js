@@ -42,7 +42,7 @@ var AbstractConnector = /** @class */ (function () {
     AbstractConnector.prototype.getEmailInfo = function (email) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, new Email_1.Email('toto@toto.com')];
+                return [2 /*return*/, new Email_1.Email(email)];
             });
         });
     };

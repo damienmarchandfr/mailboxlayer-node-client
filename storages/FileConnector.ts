@@ -33,7 +33,9 @@ export class FileConnector extends AbstractConnector {
 
         // Read file
         const content = await fs.readFile(this.path + '/' + email)
-        return JSON.parse(content.toString()) as Email
+        const mail  = JSON.parse(content.toString()) as Email
+        mail.alreadyInDatabase = true
+        return mail
     }
 
     private async creaeFolder() {

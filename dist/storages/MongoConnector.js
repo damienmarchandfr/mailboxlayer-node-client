@@ -64,6 +64,9 @@ var MongoConnector = /** @class */ (function (_super) {
                     case 0: return [4 /*yield*/, this.collection.findOne({ email: email })];
                     case 1:
                         emailFromDb = _a.sent();
+                        if (emailFromDb !== null) {
+                            emailFromDb.alreadyInDatabase = true;
+                        }
                         return [2 /*return*/, emailFromDb];
                 }
             });

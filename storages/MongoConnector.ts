@@ -14,6 +14,10 @@ export class MongoConnector extends AbstractConnector {
     public async getEmailInfo(email: string): Promise<Email | null> {
         const emailFromDb = await this.collection.findOne({email}) as Email
 
+        if (emailFromDb !== null) {
+            emailFromDb.alreadyInDatabase = true
+        }
+
         return emailFromDb
     }
 

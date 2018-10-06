@@ -122,6 +122,8 @@ The following lines show the object returned after an API request (Email class):
         free: boolean = true
         // Reflects the quality and deliverability of the requested email address
         score: number = 1
+		// Result from cache or not
+		alreadyInDatabase : boolean = false
     }
 
 Email class has the following methods:

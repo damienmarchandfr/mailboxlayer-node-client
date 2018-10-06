@@ -15,6 +15,8 @@ export class Email {
     public free: boolean = true
     public score: number = 1
 
+    public alreadyInDatabase: boolean = false
+
     constructor(email: string) {
         this.email = email
     }

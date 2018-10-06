@@ -41,6 +41,7 @@ require("mocha");
 var rp = require("request-promise");
 var sinon = require("sinon");
 var __1 = require("../..");
+var MemoryConnector_1 = require("../../storages/MemoryConnector");
 var apiResponse = {
     email: 'support@apilayer.com',
     did_you_mean: '',
@@ -64,7 +65,9 @@ var apiResponseError = {
     }
 };
 var mailBoxLayer;
+var mailBoxLayerWithCache;
 var stub;
+var memoryConnector = new MemoryConnector_1.MemoryConnector();
 describe('Test MailBoxLayer class', function () {
     before(function () {
         stub = sinon.stub(rp, 'get').resolves(apiResponse);
@@ -75,8 +78,17 @@ describe('Test MailBoxLayer class', function () {
             secure: false,
             smtp: false
         });
+        mailBoxLayerWithCache = new __1.MailBoxLayer({
+            accessKey: 'fdfjskl',
+            cache: true,
+            catchAll: false,
+            secure: false,
+            smtp: false,
+            connector: memoryConnector
+        });
     });
     afterEach(function () {
+        memoryConnector.emails = [];
         stub.restore();
         stub = sinon.stub(rp, 'get').resolves(apiResponse);
     });
@@ -99,7 +111,8 @@ describe('Test MailBoxLayer class', function () {
                         disposable: false,
                         free: false,
                         score: 0.8,
-                        smtpChecked: true
+                        smtpChecked: true,
+                        alreadyInDatabase: false
                     };
                     chai_1.expect(JSON.parse(JSON.stringify(info))).to.eql(emailInfo);
                     return [2 /*return*/];
@@ -143,6 +156,22 @@ describe('Test MailBoxLayer class', function () {
                     return [3 /*break*/, 4];
                 case 4:
                     chai_1.expect(error.code).to.eql(apiResponseError.error.code);
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('should return already in database === true if saved in database', function () { return __awaiter(_this, void 0, void 0, function () {
+        var info;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, mailBoxLayerWithCache.getInformations('support@apilayer.com')];
+                case 1:
+                    info = _a.sent();
+                    chai_1.expect(info.alreadyInDatabase).to.be.false;
+                    return [4 /*yield*/, mailBoxLayerWithCache.getInformations('support@apilayer.com')];
+                case 2:
+                    info = _a.sent();
+                    chai_1.expect(info.alreadyInDatabase).to.be.true;
                     return [2 /*return*/];
             }
         });
