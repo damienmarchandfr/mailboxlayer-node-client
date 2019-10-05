@@ -1,4 +1,4 @@
 export const  mongoConfig = {
     databaseName : 'mongo-connector-test',
-    serverUrl : 'mongodb://mongo:27017'
+    serverUrl : 'mongodb://127.0.0.1:27017'
 }
