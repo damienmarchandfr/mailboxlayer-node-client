@@ -3,8 +3,8 @@ import 'mocha';
 import * as rp from 'request-promise'
 import * as sinon from 'sinon'
 import { MailBoxLayer } from '../..';
-import { Email } from '../../models/data/Email';
 import { MemoryConnector } from '../../storages/MemoryConnector';
+import { Email } from '../../models/data/Email';
 
 const apiResponse: any = {
     email: 'support@apilayer.com',
