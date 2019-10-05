@@ -36,36 +36,34 @@
   "scripts": {
     "build": "rimraf dist && tsc",
     "prepublishOnly": "yarn run build",
-    "test": "mocha -r ts-node/register ./src/tests/**/*.test.ts --exit --reporter nyan",
+    "test": "mocha -r ts-node/register ./src/tests/**/*.test.ts --exit",
     "test:docker": "sudo docker-compose up --force-recreate --always-recreate-deps --build --abort-on-container-exit"
   },
   "dependencies": {
-    "bluebird": "^3.5.2",
-    "fs-extra": "^7.0.0",
-    "mongodb": "^3.1.6",
+    "bluebird": "^3.7.0",
+    "fs-extra": "^8.1.0",
+    "mongodb": "^3.3.2",
     "redis": "^2.8.0",
     "request": "^2.88.0",
-    "request-promise": "^4.2.2",
-    "rimraf": "^2.6.2"
+    "request-promise": "^4.2.4",
+    "rimraf": "^3.0.0"
   },
   "devDependencies": {
-    "@types/chai": "^4.1.5",
-    "@types/fs-extra": "^5.0.4",
-    "@types/mocha": "^5.2.5",
-    "@types/mongodb": "^3.1.9",
-    "@types/node": "^10.12.3",
-    "@types/redis": "^2.8.6",
-    "@types/request-promise": "^4.1.42",
+    "@types/chai": "^4.2.3",
+    "@types/fs-extra": "^8.0.0",
+    "@types/mocha": "^5.2.7",
+    "@types/mongodb": "^3.3.5",
+    "@types/node": "^12.7.11",
+    "@types/redis": "^2.8.14",
+    "@types/request-promise": "^4.1.44",
     "@types/rimraf": "^2.0.2",
-    "@types/sinon": "^5.0.2",
-    "chai": "^4.1.2",
-    "firebase-mock": "^2.2.7",
-    "mocha": "^5.2.0",
-    "pre-commit": "^1.2.2",
-    "sinon": "^6.3.4",
-    "ts-node": "^7.0.1",
-    "ts-node-dev": "^1.0.0-pre.30",
-    "tslint": "^5.11.0",
-    "typescript": "^3.0.3"
+    "@types/sinon": "^7.5.0",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.1",
+    "sinon": "^7.5.0",
+    "ts-node": "^8.4.1",
+    "ts-node-dev": "^1.0.0-pre.43",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.3"
   }
 }

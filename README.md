@@ -28,7 +28,7 @@ MailboxLayer constructor has an IConfig parameter:
 	    accessKey:  string
 	    // If you want the API to perform SMTP checks (Required)
 	    smtp:  boolean
-	    //  The real-time verification process of the MailBoxLayer API does not end with one SMTP check (Required) 
+	    //  The real-time verification process of the MailBoxLayer API does not end with one /// SMTP check (Required) 
 	    catchAll:  boolean
 	    // http or https (Required)
 	    secure:  boolean
