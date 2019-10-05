@@ -12,7 +12,7 @@ const emailToTest = 'damien@marchand.fr'
 let redisConnector: RedisConnector
 
 const redisClient = redis.createClient({
-    host : 'redis',
+    host : 'localhost',
     db : '6'
 })
 
