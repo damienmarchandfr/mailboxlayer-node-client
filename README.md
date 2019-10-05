@@ -1,4 +1,7 @@
 ## MailBoxLayer Node Client
+
+[![Build Status](https://travis-ci.com/damienmarchandfr/mailboxlayer-node-client.svg?branch=master)](https://travis-ci.com/damienmarchandfr/mailboxlayer-node-client)
+
 This library can be used to get email information.
 To get faster results, it is possible to enable the cache feature to store 1st-request email information in a database. This allows to reduce the number of API calls. 
 It uses the MailBoxLayer API: https://mailboxlayer.com
