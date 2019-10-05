@@ -36,8 +36,7 @@
   "scripts": {
     "build": "rimraf dist && tsc",
     "prepublishOnly": "yarn run build",
-    "test": "mocha -r ts-node/register ./src/tests/**/*.test.ts --exit",
-    "test:docker": "sudo docker-compose up --force-recreate --always-recreate-deps --build --abort-on-container-exit"
+    "test": "mocha -r ts-node/register ./src/tests/**/*.test.ts --exit"
   },
   "dependencies": {
     "bluebird": "^3.7.0",

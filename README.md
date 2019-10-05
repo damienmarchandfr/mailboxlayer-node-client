@@ -139,13 +139,13 @@ This library does not use callback. Use promise instead.
 
 ## Tests
 
-In order to run the tests, no environment variables need to be set. Only Docker needs to be installed.
+In order to run the tests mongoDB and Redis must be installed.
 
-    yarn run test:docker
+    yarn run test
 
 or
 
-    npm run test:docker
+    npm run test
 
 ## Connectors that can be used with this library
 
