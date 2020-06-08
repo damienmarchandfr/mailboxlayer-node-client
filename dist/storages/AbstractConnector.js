@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AbstractConnector = void 0;
 const Email_1 = require("../models/data/Email");
 class AbstractConnector {
     getEmailInfo(email) {

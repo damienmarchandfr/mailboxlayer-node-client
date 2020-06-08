@@ -24,7 +24,7 @@ const fileConnector = new FileConnector('your-directory-path')
 
 new Promise((resolve) => {resolve()})
 .then(async () => {
-    const mongoClient = await MongoClient.connect('mongo_server_url', { useNewUrlParser: true })
+    const mongoClient = await MongoClient.connect('mongo_server_url', { useNewUrlParser: true, useUnifiedTopology: true })
     const db = mongoClient.db('mongo_database_name')
     const mongoCollection = db.collection('email')
     const mongoConnector = new MongoConnector(mongoCollection)

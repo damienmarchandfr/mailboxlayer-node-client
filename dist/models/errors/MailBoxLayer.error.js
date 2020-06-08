@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.MailBoxLayerError = void 0;
 const errors = {
     404: '404 not found',
     101: 'missing access key or invalid access key',

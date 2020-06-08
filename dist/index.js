@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.MailBoxLayer = void 0;
 const rp = require("request-promise");
 const MailBoxLayer_error_1 = require("./models/errors/MailBoxLayer.error");
 const Email_1 = require("./models/data/Email");

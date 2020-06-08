@@ -12,7 +12,7 @@ let mongoCollection: Collection
 describe('Test Mongo connector : ', () => {
 
     before(async () => {
-        const mongoClient = await MongoClient.connect(mongoConfig.serverUrl, { useNewUrlParser: true })
+        const mongoClient = await MongoClient.connect(mongoConfig.serverUrl, { useNewUrlParser: true, useUnifiedTopology: true })
         const db = mongoClient.db(mongoConfig.databaseName)
         mongoCollection = db.collection('email')
         mongoConnector = new MongoConnector(mongoCollection)

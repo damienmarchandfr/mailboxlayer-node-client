@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.FileConnector = void 0;
 const AbstractConnector_1 = require("./AbstractConnector");
 const fs = require("fs-extra");
 class FileConnector extends AbstractConnector_1.AbstractConnector {
