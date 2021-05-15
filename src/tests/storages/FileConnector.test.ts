@@ -34,7 +34,7 @@ describe('Test File connector : ', () => {
     after(async () => {
         await new Promise((resolve) => {
             rimraf('./temp', (err) => {
-                resolve()
+                resolve('')
             })
         })
     })
@@ -49,7 +49,7 @@ describe('Test File connector : ', () => {
                 if (err) {
                     reject(err)
                 }
-                resolve()
+                resolve('')
             })
         })
        } catch (error) {
